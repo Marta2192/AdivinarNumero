@@ -2,16 +2,29 @@ import java.util.Scanner;
 
 public class Principal {
 
-	private static int opcion;
+	private static Integer opcion;
 	private static Scanner sc;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 		menuPrincipal();
-		leerOpcion();
-		escogerOpcion();		
-		//ÚNICO MÉTODO Y VARIOS IFS? UN SWITCH?
+		
+		
+		
+		
+	
+	}
+
+
+	private static void segundaRonda() {
+		System.out.println("¿Quieres volver a jugar?");
+		String respuesta = sc.next();
+		if(respuesta.equalsIgnoreCase("si")) {
+			menuPrincipal();
+		}else if(respuesta.equalsIgnoreCase("no")){
+			System.exit(0);
+		}
+		
 	}
 
 
@@ -28,24 +41,41 @@ public class Principal {
 	}
 
 	private static void opcion1() {
+		int numeroRandom = (int) Math.floor(Math.random()*9+1);
 		System.out.println("Escriba un número del 1 al 10, recuerde que tiene 3 intentos: ");
 		
-		opcion = sc.nextInt();
+		System.out.println(numeroRandom);
+		int contador=0;
+		do {
+			opcion = sc.nextInt();
+			if(opcion>10) {
+				System.out.println("Debe introducir un número del 1 al 10");
+				opcion1();
+			}
+			if(opcion == numeroRandom) {
+				
+				System.out.println("Has acertado el número en " + ++contador + " intento(s)\r");
+				segundaRonda();
+				
+			}if(opcion>numeroRandom){
+				System.out.println("El número a adivinar es menor.\r");
+				
+					
+			}if(opcion<numeroRandom){
+				System.out.println("El número a adivinar es mayor.\r");
+				
+			}
+			++contador;
+		}while(opcion != numeroRandom && contador<3); 
+			
+		if(opcion != numeroRandom && contador>=3) {
+			System.out.println("Has perdido! El número a adivinar era: " + numeroRandom + "\r");
+			segundaRonda();
+		}
 	}
 
 	private static void escogerOpcion() {
 		
-//		switch(opcion) {
-//		case 0:
-//			opcion0();
-//		case 1:
-//			opcion1();
-//		case 2:
-//			opcion2();
-//		default:
-//			System.out.println("Opción INCORRECTA!!\r"
-//					+ "Las únicas opciones válidas son 0, 1 o 2.\r");
-			
 			if(opcion==1) {
 				opcion1();
 			}else if (opcion==2) {
@@ -55,6 +85,8 @@ public class Principal {
 			}else {
 				System.out.println("Opción INCORRECTA!!\r"
 						+ "Las únicas opciones válidas son 0, 1 o 2.\r");
+				
+				menuPrincipal();
 					}
 				}
 			
@@ -63,6 +95,8 @@ public class Principal {
 		sc = new Scanner(System.in);
 		opcion = sc.nextInt();
 		
+		//if(opcion.getClass()!= Class.forName(Integer));
+		escogerOpcion();
 	}
 
 	private static void menuPrincipal() {
@@ -71,7 +105,7 @@ public class Principal {
 				+ "2. Del 1 al 50 (5 intentos)\r"
 				+ "0. Salir\r\r"
 				+ "Escoja una opción:");
-		
+		leerOpcion();
 	
 	}
 
