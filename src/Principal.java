@@ -2,17 +2,17 @@ import java.util.Scanner;
 
 public class Principal {
 
-	private static Integer opcion;
+	private static Integer opcion; //Integer para poder disponer del getClass??
 	private static Scanner sc;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		menuPrincipal();
-		
-		
-		
-		
-	
+		menuPrincipal();	
+	/*
+	 * PROBLEMAS:
+	 * 1. QUE EL USER ESCRIBA UNA LETRA EN LUGAR DE NÚMERO EN EL MENÚ PRINCIPAL
+	 * 2. QUE EL USER ESCRIBA UNA LETRA EN LUGAR DE NÚMERO EN LA OPCION 1 O OPCION2 DEL PROGRAMA
+	 * 3. QUE EL USER ESCRIBA UN 0 CUANDO LE PEDIMOS QUE ESCRIBA UN NÚMERO DEL 1 AL 10 O DEL 1 AL 50*/
 	}
 
 
@@ -34,9 +34,39 @@ public class Principal {
 	}
 
 	private static void opcion2() {
+		int numeroRandom = (int) Math.floor(Math.random()*49+1);
 		System.out.println("Escriba un número del 1 al 50, recuerde que tiene 5 intentos: ");
+	
 		
-		opcion = sc.nextInt();
+		System.out.println(numeroRandom);
+		int contador=0;
+		do {
+			opcion = sc.nextInt();
+			if(opcion>50) {
+				System.out.println("Debe introducir un número del 1 al 10");
+				opcion1();
+			}
+			if(opcion == numeroRandom) {
+				
+				System.out.println("Has acertado el número en " + ++contador + " intento(s)\r");
+				segundaRonda();
+				
+			}if(opcion>numeroRandom){
+				System.out.println("El número a adivinar es menor.\r");
+				
+					
+			}if(opcion<numeroRandom){
+				System.out.println("El número a adivinar es mayor.\r");
+				
+			}
+			++contador;
+		}while(opcion != numeroRandom && contador<5); 
+			
+		if(opcion != numeroRandom && contador>=5) {
+			System.out.println("Has perdido! El número a adivinar era: " + numeroRandom + "\r");
+			segundaRonda();
+		}
+		
 		
 	}
 
